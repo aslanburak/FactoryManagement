@@ -1,0 +1,99 @@
+﻿@model MaterialRequestListViewModel
+@{
+    var sortedRequests = Model.MaterialRequests.OrderByDescending(mr => mr.RequestTime).ToList();
+}
+<div>
+    <table class="table table-hover table-striped">
+
+        <tr class="table-primary text-center">
+
+            <th scope="col">Ad Soyad</th>           
+            <th scope="col">Malzeme Adı</th>
+            <th scope="col">Adet</th>
+            <th scope="col">Bina Adı</th>
+            <th scope="col">Depo Adı</th>
+            <th scope="col">Talep Tarihi</th>
+            <td></td>
+            
+            <th scope="col">Onay Durumu</th>
+            <th>Onay Tarihi</th>
+            
+            
+
+
+
+
+        </tr>
+        @foreach (var materialrequest in sortedRequests)
+        {
+            <tr class="text-center">
+                <td>@materialrequest.AppUser.Name @materialrequest.AppUser.Surname</td>
+                <td>@materialrequest.MaterialWarehouse.Material.Name</td>
+                <td><span style="color: red;">@materialrequest.Quantity</span> Adet</td>
+                <td>@materialrequest.MaterialWarehouse.Warehouse.Building.Name</td>
+                <td>@materialrequest.MaterialWarehouse.Warehouse.Name</td>
+                <td>@materialrequest.RequestTime</td>
+
+              
+
+                <td>
+                    @if (materialrequest.RequestStatus == "Pending" && User.IsInRole("Admin"))
+                    {
+                        <form method="post" asp-controller="MaterialRequest" asp-action="AddRequestTransaction" style="display:inline;">
+                            <input type="hidden" name="requestStatus" value="Approved" />
+                            <input type="hidden" name="quantity" value="@materialrequest.Quantity" />
+                            <input type="hidden" name="materialRequestId" value="@materialrequest.MaterialRequestID" />
+                            <input type="hidden" name="materialWarehouseId" value="@materialrequest.MaterialWarehouseID" />
+                            <button type="submit" class="btn btn-success btn-sm">Onayla</button>
+                        </form>
+                        <form method="post" asp-controller="MaterialRequest" asp-action="AddRequestTransaction" style="display:inline;">
+                            <input type="hidden" name="RequestStatus" value="Rejected" />
+                            <input type="hidden" name="quantity" value="@materialrequest.Quantity" />
+                            <input type="hidden" name="materialRequestId" value="@materialrequest.MaterialRequestID" />
+                            <input type="hidden" name="materialWarehouseId" value="@materialrequest.MaterialWarehouseID" />
+                            <button type="submit" class="btn btn-danger btn-sm">Reddet</button>
+                        </form>
+                    }
+                </td>
+
+
+                <td>
+                    <span class="badge
+        @(materialrequest.RequestStatus == "Pending" ? "bg-warning" :
+          materialrequest.RequestStatus == "Approved" ? "bg-success" :
+          materialrequest.RequestStatus == "Rejected" ? "bg-danger" : "bg-secondary")">
+                        @if (materialrequest.RequestStatus == "Pending")
+                        {
+                            @:Bekleniyor
+                        }
+                        else if (materialrequest.RequestStatus == "Approved")
+                        {
+                            @:Onaylandı
+                        }
+                        else if (materialrequest.RequestStatus == "Rejected")
+                        {
+                            @:Reddedildi
+                        }
+                        else
+                        {
+                            @:Bilinmiyor
+                        }
+                    </span>
+                </td>
+                
+
+                    @if (materialrequest.RequestStatus == "Approved" || materialrequest.RequestStatus == "Rejected")
+                    {
+                    <td>@materialrequest.ApprovedAt </td>
+                    }
+                
+
+            </tr>
+        }
+
+
+
+
+    </table>
+
+</div>

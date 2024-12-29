@@ -1,0 +1,33 @@
+﻿@model List<Building>
+@{
+}
+<h2>@Model.FirstOrDefault()?.Factory.Name Binaları</h2>
+<a class="btn btn-xs btn-success" asp-controller="Building" asp-action="AddBuilding">Yeni Bina Ekle</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Bina Adı</th>
+            <th>Bina Tanımı</th>
+            <th>Fabrika Adı</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var building in Model)
+        {
+            <tr>
+
+                <td>@building.Name</td>
+                <td>@building.Description</td>
+                <td>@building.Factory.Name</td>
+                <td><a class="btn btn-xs btn-dark" asp-controller="Warehouse" asp-action="ListWarehousesByBuilding" asp-route-buildingId="@building.BuildingID">Depoları Göster</a></td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td><a class="btn btn-xs btn-info" asp-controller="Building" asp-action="UpdateBuilding" asp-route-buildingId="@building.BuildingID">Güncelle</a></td>
+                    <td><a class="btn btn-xs btn-danger" asp-controller="Building" asp-action="DeleteBuilding" asp-route-buildingId="@building.BuildingID">Sil</a></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

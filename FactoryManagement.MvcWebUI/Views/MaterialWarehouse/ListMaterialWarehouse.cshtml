@@ -1,0 +1,79 @@
+﻿@model MaterialWarehouseListViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2> Tüm Ürünler</h2>
+<div>
+    <form method="get" asp-action="ListMaterialWarehouse">
+        <input type="hidden" name="warehouseId" value="@Model.MaterialWarehouses.FirstOrDefault().Warehouse.WarehouseID" />
+        <input type="text" name="materialName" placeholder="Malzeme adı ile ara" />
+        <button type="submit">Ara</button>
+    </form>
+
+    <table class="table">
+        <tr>
+            <th>Material</th>
+            <th>Depo</th>
+            <th>Stok</th>
+            <th>Ekle</th>
+            <th>Çıkar</th>
+            <th>Talep Et</th>
+
+
+        </tr>
+        @foreach (var warehouse in Model.MaterialWarehouses)
+        {
+            <tr>
+                <td><a href="/MaterialWarehouse/ListMaterialWarehouse/?materialId=@warehouse.MaterialID">@warehouse.Material.Name</a></td>
+                <td><a href="/MaterialWarehouse/ListMaterialWarehouse/?warehouseId=@warehouse.WarehouseID">@warehouse.Warehouse.Name</a></td>
+                <td>@warehouse.StockQuantity</td>
+
+                <td>
+                    <form method="post" asp-controller="MaterialTransaction" asp-action="AddTransaction" class="d-flex align-items-center">
+                        <input type="hidden" name="warehouseId" value="@warehouse.WarehouseID" />
+                        <input type="hidden" name="materialWarehouseId" value="@warehouse.MaterialWarehouseID" />
+                        <input type="hidden" name="materialId" value="@warehouse.MaterialID" />
+                        <input type="hidden" name="transactionType" value="Eklendi" />
+                        <input type="number" name="quantity" min="1" class="form-control" style="width: 75px;" required />
+
+                        <button class="btn btn-xs btn-success" type="submit">Ekle</button>
+                    </form>
+
+                </td>
+                <td>
+                    <form method="post" asp-controller="MaterialTransaction" asp-action="AddTransaction" class="d-flex align-items-center">
+                        <input type="hidden" name="warehouseId" value="@warehouse.WarehouseID" />
+                        <input type="hidden" name="materialWarehouseId" value="@warehouse.MaterialWarehouseID" />
+                        <input type="hidden" name="materialId" value="@warehouse.MaterialID" />
+                        <input type="hidden" name="transactionType" value="Çıkarıldı" />
+                        <input type="number" name="quantity" min="1" class="form-control" style="width: 75px;" required />
+                        <button class="btn btn-xs btn-danger" type="submit">Çıkar</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" asp-controller="MaterialRequest" asp-action="AddMaterialRequest" class="d-flex align-items-center">
+                        
+                        <input type="hidden" name="materialWarehouseId" value="@warehouse.MaterialWarehouseID" />                                                      
+                        <input type="number" name="quantity" min="1" class="form-control" style="width: 75px;" required />
+                        <button class="btn btn-xs btn-warning" type="submit">Talep Et</button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+        <tfoot>
+            <tr>
+                <td colspan="2" class="text-right"><strong>Toplam Stok:</strong></td>
+                <td colspan="3">
+                    <strong>@Model.MaterialWarehouses.Sum(mw => mw.StockQuantity)</strong>
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+
+
+
+</div>

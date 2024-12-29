@@ -1,0 +1,21 @@
+﻿@model MaterialListViewModel
+@{
+
+}
+<h2>Malzemeler</h2>
+<table class="table">
+    <tr>
+        <td>Malzeme Adı</td>
+        <td>Malzeme Açıklaması</td>
+    </tr>
+
+    @foreach(var material in Model.Materials)
+    {
+        <tr>
+            <td>@material.Name</td>
+            <td>@material.Description</td>
+        </tr>
+    }
+
+
+</table>

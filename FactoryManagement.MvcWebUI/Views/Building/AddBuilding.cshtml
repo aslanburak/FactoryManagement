@@ -1,0 +1,35 @@
+﻿@using FactoryManagement.Entities.Concrete
+@model BuildingAddViewModel
+@{
+}
+
+<h2>Bina Ekle</h2>
+<form asp-controller="Building" asp-action="AddBuilding">
+    <div class="mb-3">
+        <label class="form-label">Bina Adı</label>
+        <input asp-for="Building.Name" class="form-control">
+
+        <span asp-validation-for="Building.Name"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Fabrika Seç</label>
+        <select asp-for="Building.FactoryID" class="form-control" asp-items="@(new SelectList(Model.Factories,"FactoryID","Name"))">
+            <option value="">Seçiniz</option>
+        </select>
+        <span asp-validation-for="Building.FactoryID"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Bina Tanımı</label>
+        <textarea asp-for="Building.Description" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Building.Description"></span>
+    </div>
+
+    <input asp-for="Building.CreateTime" class="form-control" type="hidden">
+    <input asp-for="Building.BuildingID" type="hidden" />
+
+    <button type="submit" class="btn btn-primary">Oluştur</button>
+
+
+
+</form>

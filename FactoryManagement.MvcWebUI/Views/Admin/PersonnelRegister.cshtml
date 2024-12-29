@@ -1,0 +1,78 @@
+﻿@model AppUserRegisterDto
+@{
+}
+<style>
+    .container {
+        width: 100%;
+        max-width: 1000px;
+        align-items: center;
+    }
+</style>
+
+<div class="container">
+    <div id="signupbox" style="margin-top:50px;" class="mainbox col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h2>Personnel Kayıt</h2>
+            </div>
+            <div class="panel-body">
+                <form asp-controller="Admin" asp-action="PersonnelRegister" method="post" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="Name" type="text" class="form-control" placeholder="Personel Adı">
+                            <span asp-validation-for="Name"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="Surname" type="text" class="form-control" placeholder="Personel Soyadı">
+                            <span asp-validation-for="Surname"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="Username" type="text" class="form-control" placeholder="Personel Kullanıcı Adı ">
+                            <span asp-validation-for="Username"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="Email" type="email" class="form-control" placeholder="Personel E-Posta Adresi">
+                            <span asp-validation-for="Email"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="Password" class="form-control" placeholder="Personel Şifre Belirle">
+                            <span asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Şifreyi Tekrar Giriniz">
+                            <span asp-validation-for="ConfirmPassword"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <!-- Button -->
+                        <div class="col-md-offset-3 col-md-9">
+                            <input type="submit" class="btn btn-info" value="Kayıt Oluştur"><i class="icon-hand-right"></i>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

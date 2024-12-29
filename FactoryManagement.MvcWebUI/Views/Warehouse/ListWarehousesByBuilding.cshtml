@@ -1,0 +1,34 @@
+﻿@model WarehouseListViewModel
+@{
+}
+<h2> Depo Listesi</h2>
+<a class="btn btn-xs btn-success" asp-controller="Warehouse" asp-action="AddWarehouse">Yeni Depo Oluştur</a>
+<a class="btn btn-xs btn-dark" asp-controller="MaterialWarehouse" asp-action="ListMaterialWarehouse">Tüm Ürünleri Göster</a>
+<div>
+    <table class="table">
+        <tr>
+            <th>Depo Adı</th>
+            <th>Depo Tanımı</th>
+            <th>Oluşturulma Zamanı</th>
+            <th></th>
+            <th></th>
+            <th></th>
+
+        </tr>
+
+        @foreach (var warehouse in Model.Warehouses)
+        {
+            <tr>
+                <td><a href="/MaterialWarehouse/GetMaterialsByWarehouseId/?warehouseId=@warehouse.WarehouseID">@warehouse.Name</a></td>
+                <td>@warehouse.Description</td>
+                <td>@warehouse.CreatetAt</td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td><a class="btn btn-xs btn-info" asp-controller="Warehouse" asp-action="UpdateWarehouse" asp-route-warehouseId="@warehouse.WarehouseID">Güncelle</a></td>
+                    <td><a class="btn btn-xs btn-danger" asp-controller="Warehouse" asp-action="DeleteWarehouse" asp-route-warehouseId="@warehouse.WarehouseID">Sil</a></td>
+                }
+                <td><a class="btn btn-xs btn-dark" asp-controller="MaterialWarehouse" asp-action="AddMaterialWarehouse" asp-route-warehouseId="@warehouse.WarehouseID">Depoya Malzeme Ekle</a></td>
+            </tr>
+        }
+    </table>
+</div>

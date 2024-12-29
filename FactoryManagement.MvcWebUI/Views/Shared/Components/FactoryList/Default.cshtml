@@ -1,0 +1,38 @@
+﻿@model List<Factory>
+@{
+}
+<ul id="sidebar" class="sidebar-nav p-0">
+    @foreach (var factory in Model)
+    {
+        <li class="sidebar-item">
+            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+               data-bs-target="#factory-@factory.FactoryID" aria-expanded="false">
+                <i class="fas fa-industry"></i>
+                <span>@factory.Name</span>
+            </a>
+            <ul id="factory-@factory.FactoryID" class="sidebar-dropdown list-unstyled collapse">
+                @foreach (var building in factory.Buildings)
+                {
+                    <li class="sidebar-item">
+                        <a href="/Warehouse/ListWarehousesByBuilding?buildingId=@building.BuildingID" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                           data-bs-target="#building-@building.BuildingID" aria-expanded="false">
+                            <i class="fas fa-building"></i>
+                            <span>@building.Name</span>
+                        </a>
+                        <ul id="building-@building.BuildingID" class="sidebar-dropdown list-unstyled collapse">
+                            @foreach (var warehouse in building.Warehouses)
+                            {
+                                <li class="sidebar-item">
+                                    <a href="/MaterialWarehouse/GetMaterialsByWarehouseId/?warehouseId=@warehouse.WarehouseID" class="sidebar-link">
+                                        <i class="fas fa-warehouse"></i>
+                                        @warehouse.Name
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

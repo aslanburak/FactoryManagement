@@ -1,0 +1,76 @@
+﻿@model AppUserLoginDto
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+            .login-container .form-title {
+                font-size: 35px;
+                font-weight: bold;
+                color: #000000;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .login-container .input-group {
+                margin-bottom: 20px;
+            }
+
+            .login-container .btn {
+                width: 100%;
+            }
+
+            .login-container .forgot-password {
+                text-align: center;
+                margin-top: 10px;
+            }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="form-title">Giriş Yap</div>
+        <form asp-controller="Account" asp-action="Login" method="post">
+            <div class="input-group">
+                
+                <input asp-for="Username" class="form-control" placeholder="Kullanıcı Adı ">
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="input-group">
+                
+                <input asp-for="Password" class="form-control" type="password" placeholder="Şifre">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Giriş Yap</button>
+            <div class="forgot-password">
+                <a href="#">Şifrenizi mi unuttunuz?</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

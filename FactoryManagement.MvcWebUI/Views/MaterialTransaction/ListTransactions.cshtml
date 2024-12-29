@@ -1,0 +1,50 @@
+﻿@model TransactionListViewModel
+
+@{
+    var sortedTransactions = Model.MaterialTransactions.OrderByDescending(mr => mr.TransactionDate).ToList();
+
+}
+<div>
+    <table class="table table-hover table-striped">
+
+        <tr class="table-primary text-center">
+            <th scope="col">Rolü</th>
+            <th scope="col">Ad Soyad</th>
+            <th scope="col">Adet</th>
+            <th scope="col">Malzeme Adı</th>
+            <th scope="col">İşlem Türü</th>
+            <th scope="col">Zaman</th>
+            <th scope="col">Bina Adı</th>
+            <th scope="col">Depo Adı</th>
+            
+            
+
+
+        </tr>
+        @foreach (var transaction in sortedTransactions)
+        {
+            <tr class="text-center">
+                <td>@transaction.AppUser. </td>
+                <td>@transaction.AppUser.Name @transaction.AppUser.Surname</td>                
+                <td><span style="color: red;">@transaction.Quantity</span> Adet</td>
+                <td>@transaction.MaterialWarehouse.Material.Name</td>
+                <td>
+                    <span class="badge
+                @(transaction.TransactionType == "Eklendi" ? "bg-success" :
+                  transaction.TransactionType == "Çıkarıldı" ? "bg-danger" :
+                  transaction.TransactionType == "Depoya Eklendi" ? "bg-warning text-dark" : "bg-secondary")">
+                        @transaction.TransactionType
+                    </span>
+                </td>
+                <td>@transaction.TransactionDate</td>
+                <td>@transaction.MaterialWarehouse.Warehouse.Building.Name</td>
+                <td>@transaction.MaterialWarehouse.Warehouse.Name</td>
+                
+            </tr>
+        }
+
+
+
+    </table>
+
+</div>

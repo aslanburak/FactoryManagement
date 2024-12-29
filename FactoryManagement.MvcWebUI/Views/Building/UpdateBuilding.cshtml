@@ -1,0 +1,32 @@
+﻿ @model BuildingUpdateViewModel
+@{
+}
+<h2>Bina Güncelle</h2>
+<form asp-controller="Building" asp-action="UpdateBuilding" method="post">
+    <div class="mb-3">
+        <label asp-for="Building.Name" class="form-label"></label>
+        <input asp-for="Building.Name" class="form-control">
+
+        <span asp-validation-for="Building.Name"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Building.FactoryID" class="form-label"></label>
+        <select asp-for="Building.FactoryID" class="form-control" asp-items="@(new SelectList(Model.Factories,"FactoryID","Name"))">
+        </select>
+        <span asp-validation-for="Building.FactoryID"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Building.Description" class="form-label"></label>
+        <textarea asp-for="Building.Description" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Building.Description"></span>
+    </div>
+    <input asp-for="Building.BuildingID" type="hidden" />
+
+    <input asp-for="Building.CreateTime" class="form-control" type="hidden">
+
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+
+
+
+</form>

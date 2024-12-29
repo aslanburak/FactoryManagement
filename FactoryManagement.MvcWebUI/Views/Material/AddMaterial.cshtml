@@ -1,0 +1,21 @@
+﻿@model MaterialAddViewModel
+@{
+}
+<h2>Malzeme Ekle</h2>
+<form asp-controller="Material" asp-action="AddMaterial" method="post" >
+    <div class="mb-3">
+        <label class="form-label">Malzeme Adı</label>
+        <input asp-for="Material.Name" class="form-control"/>
+        <span asp-validation-for="Material.Name"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Malzeme Açıklaması</label>
+        <input asp-for="Material.Description" class="form-control" />
+        <span asp-validation-for="Material.Description"></span>
+    </div>
+    <input asp-for="Material.MaterialID" type="hidden" />
+    <button type="submit" class="btn btn-primary">Oluştur</button>
+
+
+
+</form>

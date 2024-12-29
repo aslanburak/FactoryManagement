@@ -1,0 +1,30 @@
+﻿@model WarehouseUpdateViewModel
+@{
+}
+<h2>Depoyu Güncelle</h2>
+
+
+<form asp-controller="Warehouse" asp-action="UpdateWarehouse" method="post">
+    <div class="mb-3">
+        <label class="form-label">Depo Adı</label>
+        <input asp-for="Warehouse.Name" class="form-control" />
+        <span asp-validation-for="Warehouse.Name"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Bina Seç</label>
+        <select asp-for="Warehouse.BuildingID" class="form-control" asp-items="@(new SelectList(Model.Buildings,"BuildingID","Name"))">
+            
+        </select>
+        <span asp-validation-for="Warehouse.BuildingID"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Depo Tanımı</label>
+        <textarea asp-for="Warehouse.Description" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Warehouse.Description"></span>
+    </div>
+    <input type="hidden" asp-for="Warehouse.WarehouseID" />
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+
+
+</form>

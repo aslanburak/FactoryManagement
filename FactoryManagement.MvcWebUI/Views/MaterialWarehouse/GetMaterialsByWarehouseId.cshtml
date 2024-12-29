@@ -1,0 +1,53 @@
+﻿@model MaterialsByWarehouseListViewModel
+
+@{
+}
+<h2>@Model.MaterialWarehouses.FirstOrDefault()?.Warehouse.Name</h2>
+<div>
+    <table class="table">
+        <tr>
+            <th>Material</th>
+            <th>Depo</th>
+            <th>Stok</th>
+            <th>Ekle</th>
+            <th>Çıkar</th>
+          
+            
+        </tr>
+        @foreach(var warehouse in Model.MaterialWarehouses)
+        { <tr>
+            <td>@warehouse.Material.Name</td>
+            <td><a href="/MaterialWarehouse/GetMaterialsByWarehouseId/?warehouseId=@warehouse.WarehouseID">@warehouse.Warehouse.Name</a></td>
+            <td>@warehouse.StockQuantity</td>
+           
+                <td>
+                    <form method="post" asp-controller="MaterialTransaction" asp-action="AddTransaction" class="d-flex align-items-center">
+                        <input type="hidden" name="warehouseId" value="@warehouse.WarehouseID" />
+                        <input type="hidden" name="materialWarehouseId" value="@warehouse.MaterialWarehouseID" />
+                        <input type="hidden" name="materialId" value="@warehouse.MaterialID" />
+                        <input type="hidden" name="transactionType" value="Eklendi" />
+                        <input type="number"  name="quantity" min="1" class="form-control" style="width: 75px;" required />
+
+                        <button  class="btn btn-xs btn-success" type="submit">Ekle</button>
+                    </form>
+
+                </td>
+                <td>
+                    <form method="post" asp-controller="MaterialTransaction" asp-action="AddTransaction" class="d-flex align-items-center">
+                        <input type="hidden" name="warehouseId" value="@warehouse.WarehouseID" />
+                        <input type="hidden" name="materialWarehouseId" value="@warehouse.MaterialWarehouseID" />                       
+                        <input type="hidden" name="materialId" value="@warehouse.MaterialID" />
+                        <input type="hidden" name="transactionType" value="Çıkarıldı" />
+                        <input type="number" name="quantity" min="1" class="form-control" style="width: 75px;" required />
+                        <button class="btn btn-xs btn-danger" type="submit">Çıkar</button>
+                    </form>
+                </td>
+          </tr>
+        }
+
+
+    </table>
+
+
+
+</div>

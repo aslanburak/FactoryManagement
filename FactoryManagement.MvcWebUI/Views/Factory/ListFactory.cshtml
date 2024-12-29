@@ -1,0 +1,38 @@
+﻿@model FactoryListViewModel
+@{
+}
+<h2>Fabrika Listesi</h2>
+
+
+<div>
+    <table class="table">
+        <tr>
+            <th>Fabrika Adı</th>
+            <th>Fabrika Adresi</th>
+            <th>Fabrika Tanımı</th>
+            <th></th>
+            <th></th>
+            <th></th>
+
+        </tr>
+
+        @foreach (var factory in Model.Factories)
+        {
+            <tr>
+                <td>@factory.Name</td>
+                <td>@factory.Location</td>
+                <td>@factory.Description</td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td><a class="btn btn-xs btn-info" asp-controller="Factory" asp-action="UpdateFactory" asp-route-factoryId="@factory.FactoryID">Güncelle</a></td>
+                    <td><a class="btn btn-xs btn-danger" asp-controller="Factory" asp-action="DeleteFactory" asp-route-factoryId="@factory.FactoryID">Sil</a></td>
+                }
+                <td><a class="btn btn-xs btn-dark" asp-controller="Building" asp-action="BuildingsByFactory" asp-route-factoryId="@factory.FactoryID">Binaları göster</a></td>
+            </tr>
+        }
+    </table>
+</div>
+ @if (User.IsInRole("Admin"))
+                {
+<a class="btn btn-xs btn-success" asp-controller="Factory" asp-action="AddFactory">Yeni Fabrika Oluştur</a>
+                }

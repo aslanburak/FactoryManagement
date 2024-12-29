@@ -1,0 +1,26 @@
+﻿@model FactoryUpdateViewModel
+@{
+}
+<h2>Fabrika Güncelleme</h2>
+<form asp-controller="Factory" asp-action="UpdateFactory" method="post">
+    <div class="mb-3">
+        <label asp-for="Factory.Name" class="form-label"></label>
+        <input asp-for="Factory.Name" class="form-control" />
+        <span asp-validation-for="Factory.Name"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Factory.Location" class="form-label"></label>
+        <input asp-for="Factory.Location" class="form-control" />
+        <span asp-validation-for="Factory.Location"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Factory.Description" class="form-label"></label>
+        <input asp-for="Factory.Description" class="form-control" />
+        <span asp-validation-for="Factory.Description"></span>
+    </div>
+    @* <input asp-for="Factory." class="form-control" type="hidden"> *@ @* Oluşturulma Tarihini yazacaz *@
+    <input type="hidden" asp-for="Factory.FactoryID" />
+
+    <button type="submit" class=" btn btn-primary">Güncelle</button>
+
+</form>
