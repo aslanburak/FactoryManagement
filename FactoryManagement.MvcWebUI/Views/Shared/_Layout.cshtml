@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="~/css/style.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
 <body>
     <div class="d-flex">
@@ -25,7 +27,7 @@
                     Profil Ve Analiz
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a asp-controller="MyProfile" asp-action="Index" class="sidebar-link">
                         <i class="lni lni-user"></i>
                         <span>Profil</span>
                     </a>
@@ -53,7 +55,7 @@
                 @* Kayıt oluşturma end *@
                 <li class="sidebar-item">
                     <a asp-controller="MaterialRequest" asp-action="ListRequest" class="sidebar-link">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-hand-paper"></i>
                         <span>Talepler</span>
                     </a>
                 </li>
@@ -66,7 +68,7 @@
                 </li>
                 <li class="sidebar-item">
                     <a asp-controller="MaterialWarehouse" asp-action="ListMaterialWarehouse" class="sidebar-link">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="bi bi-box"></i>
                         <span>Tüm Ürünler</span>
                     </a>
                 </li>
@@ -98,24 +100,18 @@
                     </li>
                 }
 
-
-
-<!-- #endregion -->
-                        </li>
-                    
-                </ul>
                 <li class="sidebar-item">
                     <a asp-controller="Material" asp-action="addmaterial" class="sidebar-link">
-                    <i class="fas fa-box"></i>
+                        <i class="fas fa-box"></i>
                         <span>Yeni Ürün Ekle</span>
                     </a>
                 </li>
-            <li class="sidebar-item">
-                <a asp-controller="MaterialWarehouse" asp-action="AddMaterialWarehouse" class="sidebar-link">
-                    <i class="fas fa-box"></i>
-                    <span>Depoya Ürün Ekle</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a asp-controller="MaterialWarehouse" asp-action="AddMaterialWarehouse" class="sidebar-link">
+                        <i class="fas fa-box"></i>
+                        <span>Depoya Ürün Ekle</span>
+                    </a>
+                </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-cog"></i>
@@ -130,6 +126,12 @@
                     <span>Çıkış Yap</span>
                 </a>
             </div>
+
+<!-- #endregion -->
+                        </li>
+                    
+                </ul>
+                
         </aside>
         <!-- Sidebar Ends -->
         <!-- Main Component -->
@@ -138,7 +140,20 @@
                 <button class="toggler-btn" type="button">
                     <i class="lni lni-text-align-left"></i>
                 </button>
+
+                <div class="ms-auto">
+                    
+                    <!-- Profil kısmını sağa almak için bu divi ekledik -->
+                     <li class="sidebar-item">
+                        <a asp-controller="MyProfile" asp-action="Index" class="sidebar-link text-dark">
+                            <i class="lni lni-user text-dark"></i>
+                            @await Component.InvokeAsync("ProfilLayout")
+                        </a>
+                    </li> 
+                </div>
+                
             </nav>
+
             <main class="p-3">
                 <div class="container-fluid">
                     

@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\gentela-gh-pages\**" />
+    <Content Remove="wwwroot\gentela-gh-pages\**" />
+    <EmbeddedResource Remove="wwwroot\gentela-gh-pages\**" />
+    <None Remove="wwwroot\gentela-gh-pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="bootstrap" Version="5.3.3" />
@@ -22,10 +29,6 @@
     <ProjectReference Include="..\FactoryManagement.Core\FactoryManagement.Core.csproj" />
     <ProjectReference Include="..\FactoryManagement.DataAccess\FactoryManagement.DataAccess.csproj" />
     <ProjectReference Include="..\FactoryManagement.Entities\FactoryManagement.Entities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\gentela-gh-pages\vendors\bootstrap\dist\css\" />
   </ItemGroup>
 
 </Project>
