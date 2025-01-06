@@ -39,6 +39,11 @@ namespace FactoryManagement.Business.Concrete
             return _materialRequestDal.Get(mt => mt.MaterialRequestID == materialRequestId);
         }
 
+        public List<MaterialRequest> GetByRequestStatus(string requestStatus)
+        {
+            return _materialRequestDal.GetList().Where(mr=>mr.RequestStatus == requestStatus).ToList();
+        }
+
         public void Update(MaterialRequest materialRequest)
         {
             _materialRequestDal.Update(materialRequest);

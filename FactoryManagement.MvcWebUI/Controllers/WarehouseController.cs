@@ -2,6 +2,7 @@
 using FactoryManagement.Entities.Concrete;
 
 using FactoryManagement.MvcWebUI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FactoryManagement.MvcWebUI.Controllers
@@ -20,6 +21,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             
         }
         #region WAREHOUSE CONTROLLER
+        [Authorize]
         public ActionResult ListWarehouse()
         {
             var model = new WarehouseListViewModel { 
@@ -29,6 +31,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             return View(model);
         }
         //Bulding'e göre Warehouse ları listele
+        [Authorize]
         public ActionResult ListWarehousesByBuilding(int buildingId)
         {
             var model = new WarehouseListViewModel
@@ -38,6 +41,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             };
             return View(model);
         }
+        [Authorize(Roles ="Admin")]
         public ActionResult AddWarehouse()
         {
             var model = new WarehouseAddViewModel
@@ -62,7 +66,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             }
             return RedirectToAction("AddWarehouse");
         }
-
+        [Authorize(Roles ="Admin")]
         public ActionResult UpdateWarehouse(int warehouseId)
         {
             var model = new WarehouseUpdateViewModel
@@ -83,7 +87,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             }
             return RedirectToAction("ListWarehouse");
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteWarehouse(int warehouseId)
         {
             _warehouseService.Delete(warehouseId);

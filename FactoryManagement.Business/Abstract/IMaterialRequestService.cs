@@ -15,5 +15,6 @@ namespace FactoryManagement.Business.Abstract
         List<MaterialRequest> GetAll();
 
         MaterialRequest GetById(int materialRequestId);
+       List< MaterialRequest> GetByRequestStatus(string requestStatus);
     }
 }

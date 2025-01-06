@@ -1,5 +1,6 @@
 ﻿using FactoryManagement.DtoLayer.Dtos.AppUserDto;
 using FactoryManagement.Entities.Concrete.CustomIdentity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             _userManager = userManager;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var values = await _userManager.FindByNameAsync(User.Identity.Name);

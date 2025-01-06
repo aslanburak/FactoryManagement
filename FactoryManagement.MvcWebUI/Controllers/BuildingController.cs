@@ -1,6 +1,7 @@
 ﻿using FactoryManagement.Business.Abstract;
 using FactoryManagement.Entities.Concrete;
 using FactoryManagement.MvcWebUI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FactoryManagement.MvcWebUI.Controllers
@@ -18,6 +19,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             
         }
         #region BUİLDİNG CONTROLLER
+        [Authorize(Roles ="Admin")]
         public ActionResult AddBuilding()
         {
 
@@ -47,6 +49,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
 
             return RedirectToAction("AddBuilding");
         }
+        [Authorize]
         public ActionResult BuildingsByFactory(int factoryId = 0)
         {
             if (factoryId == 0)
@@ -63,7 +66,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
 
         }
 
-
+        [Authorize]
         public ActionResult UpdateBuilding(int buildingId)
         {
             var model = new BuildingUpdateViewModel
@@ -85,6 +88,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             }
             return RedirectToAction("BuildingsByFactory", new { factoryId = building.FactoryID });
         }
+        [Authorize]
         public ActionResult DeleteBuilding(int buildingId)
         {
             _buildingService.Delete(buildingId);

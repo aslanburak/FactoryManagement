@@ -2,6 +2,7 @@
 using FactoryManagement.Business.Abstract;
 using FactoryManagement.MvcWebUI.Models;
 using FactoryManagement.Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FactoryManagement.MvcWebUI.Controllers
 {
@@ -13,6 +14,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             _materialService = materialService;
             
         }
+        [Authorize]
         public ActionResult ListMaterial()
         {
             var model = new MaterialListViewModel
@@ -22,6 +24,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             return View(model);
 
         }
+        [Authorize]
         public ActionResult AddMaterial()
         {
             var model = new MaterialAddViewModel

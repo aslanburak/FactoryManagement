@@ -2,7 +2,7 @@
 @{
 }
 <h2>@Model.FirstOrDefault()?.Factory.Name Binaları</h2>
-<a class="btn btn-xs btn-success" asp-controller="Building" asp-action="AddBuilding">Yeni Bina Ekle</a>
+<a class="btn btn-xs btn-success" asp-controller="Building" asp-action="AddBuilding" asp-route-factoryId="@Model.FirstOrDefault().FactoryID">Yeni Bina Ekle</a>
 
 <table class="table">
     <thead>

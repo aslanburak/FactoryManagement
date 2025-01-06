@@ -56,7 +56,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             return RedirectToAction("AddBuilding","Building");
 
         }
-
+        [Authorize(Roles ="Admin")]
         public ActionResult UpdateFactory(int factoryId)
         {
             var model = new FactoryUpdateViewModel
@@ -77,7 +77,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
 
             return RedirectToAction("ListFactory");
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteFactory(int factoryId)
         {
             _factoryService.Delete(factoryId);

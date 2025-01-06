@@ -7,7 +7,7 @@
 <h2> Tüm Ürünler</h2>
 <div>
     <form method="get" asp-action="ListMaterialWarehouse">
-        <input type="hidden" name="warehouseId" value="@Model.MaterialWarehouses.FirstOrDefault().Warehouse.WarehouseID" />
+   @*      <input type="hidden" name="warehouseId" value="@Model.MaterialWarehouses.FirstOrDefault().Warehouse.WarehouseID" /> *@
         <input type="text" name="materialName" placeholder="Malzeme adı ile ara" />
         <button type="submit">Ara</button>
     </form>
@@ -27,7 +27,7 @@
         {
             <tr>
                 <td><a href="/MaterialWarehouse/ListMaterialWarehouse/?materialId=@warehouse.MaterialID">@warehouse.Material.Name</a></td>
-                <td><a href="/MaterialWarehouse/ListMaterialWarehouse/?warehouseId=@warehouse.WarehouseID">@warehouse.Warehouse.Name</a></td>
+                <td><a href="/MaterialWarehouse/GetMaterialsByWarehouseId/?warehouseId=@warehouse.WarehouseID">@warehouse.Warehouse.Name</a></td>
                 <td>@warehouse.StockQuantity</td>
 
                 <td>

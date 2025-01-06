@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using FactoryManagement.MvcWebUI.Models;
 using FactoryManagement.Entities.Concrete.CustomIdentity;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 namespace FactoryManagement.MvcWebUI.Controllers
 {
     public class MaterialWarehouseController : Controller
@@ -20,7 +21,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             _warehouseService = warehouseService;
             _materialTransactionService = materialTransactionService;
         }
-
+        [Authorize]
         public ActionResult ListMaterialWarehouse(int warehouseId = 0, string materialName = "" ,int materialId=0)
         {
           
@@ -54,16 +55,38 @@ namespace FactoryManagement.MvcWebUI.Controllers
         }
 
         //DepoID ile bu depoda hangi ürünlerin olduğunu göreceğiz
-
-        public ActionResult GetMaterialsByWarehouseId(int warehouseId)
+        [Authorize]
+        public ActionResult GetMaterialsByWarehouseId(int warehouseId = 0, string materialName = "", int materialId = 0)
         {
-            var model = new MaterialsByWarehouseListViewModel
+            var model = new MaterialsByWarehouseListViewModel();
+
+
+            if (warehouseId == 0)
             {
-                MaterialWarehouses = _materialWarehouseService.GetByWarehouseId(warehouseId)
-            };
+                model.MaterialWarehouses = _materialWarehouseService.GetAll();
+            }
+            else
+            {
+                model.MaterialWarehouses = _materialWarehouseService.GetByWarehouseId(warehouseId);
+            }
+            if (materialId != 0)
+            {
+                model.MaterialWarehouses = model.MaterialWarehouses
+                    .Where(mw => mw.Material.MaterialID == materialId)
+                    .ToList();
+            }
+
+
+            if (!string.IsNullOrEmpty(materialName))
+            {
+                model.MaterialWarehouses = model.MaterialWarehouses
+                    .Where(mw => mw.Material.Name.Contains(materialName, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
             return View(model);
         }
-
+        [Authorize]
         //materialId ye göre depoları getir
         public ActionResult GetMaterialWarehousesByMaterialId(int materialId)
         {
@@ -83,6 +106,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             return View(model);
         }
         [HttpPost]
+        [Authorize]
         public ActionResult AddMaterialWarehouse(MaterialWarehouse materialWarehouse)
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));

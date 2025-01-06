@@ -1,6 +1,7 @@
 ﻿using FactoryManagement.Business.Abstract;
 using FactoryManagement.Entities.Concrete;
 using FactoryManagement.MvcWebUI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -18,16 +19,30 @@ namespace FactoryManagement.MvcWebUI.Controllers
             _materialTransactionService = materialTransactionService;
             _materialWarehouseService = materialWarehouseService;
         }
-
-        public ActionResult ListRequest()
+        [Authorize]
+        public ActionResult ListRequest(string requestStatus)
         {
-            var model = new MaterialRequestListViewModel
+            if (requestStatus == null)
             {
-                MaterialRequests = _materialRequestService.GetAll()
-            };
-            return View(model);
-        }
+                var model = new MaterialRequestListViewModel
+                {
+                    MaterialRequests = _materialRequestService.GetAll()
+                };
+                return View(model);
+            }
+            else
+            {
 
+                var model = new MaterialRequestListViewModel
+                {
+                    MaterialRequests = _materialRequestService.GetByRequestStatus(requestStatus)
+                };
+
+                return View(model);
+            }
+            
+        }
+        [Authorize]
         [HttpPost]
         public ActionResult AddMaterialRequest(int quantity, int materialWarehouseId)
         {
@@ -46,7 +61,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             return RedirectToAction("ListMaterialWarehouse", "MaterialWarehouse");
 
         }
-
+        [Authorize]
         public ActionResult AddRequestTransaction(int materialRequestId,string requestStatus,int materialWarehouseId,int quantity)
         {
            var materialRequest= _materialRequestService.GetById(materialRequestId);

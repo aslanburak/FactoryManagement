@@ -1,8 +1,27 @@
 ﻿@model MaterialRequestListViewModel
 @{
     var sortedRequests = Model.MaterialRequests.OrderByDescending(mr => mr.RequestTime).ToList();
+
+
 }
+
 <div>
+    <h2>Talepler</h2>
+    <div class="d-flex justify-content-end mb-3">
+    <div class="btn-group ">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Listele
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" asp-controller="MaterialRequest"  asp-action="ListRequest" asp-route-requestStatus="">Tümü</a>
+            <a class="dropdown-item" asp-controller="MaterialRequest" asp-action="ListRequest" asp-route-requestStatus="Pending">Beklenen</a>
+            <a class="dropdown-item" asp-controller="MaterialRequest" asp-action="ListRequest" asp-route-requestStatus="Approved">Onaylanan</a>
+            <a class="dropdown-item" asp-controller="MaterialRequest" asp-action="ListRequest" asp-route-requestStatus="Rejected">Reddedilen</a>
+           
+        </div>
+    </div>
+    </div>
+
     <table class="table table-hover table-striped">
 
         <tr class="table-primary text-center">
@@ -58,13 +77,13 @@
 
 
                 <td>
-                    <span class="badge
-        @(materialrequest.RequestStatus == "Pending" ? "bg-warning" :
+                    <span class="badge 
+        @(materialrequest.RequestStatus == "Pending" ? "bg-warning text-dark" :
           materialrequest.RequestStatus == "Approved" ? "bg-success" :
           materialrequest.RequestStatus == "Rejected" ? "bg-danger" : "bg-secondary")">
                         @if (materialrequest.RequestStatus == "Pending")
                         {
-                            @:Bekleniyor
+                            @:Bekleniyor  
                         }
                         else if (materialrequest.RequestStatus == "Approved")
                         {
@@ -79,6 +98,10 @@
                             @:Bilinmiyor
                         }
                     </span>
+                    @if (materialrequest.RequestStatus == "Pending")
+                    {
+                        <div class="spinner-border text-dark" role="status"> </div>
+                    }
                 </td>
                 
 

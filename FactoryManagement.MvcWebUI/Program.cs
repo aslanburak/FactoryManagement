@@ -43,6 +43,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login"; // Kullanýcý doðrulanmamýþsa buraya yönlendirilir.
     options.AccessDeniedPath = "/Account/AccessDenied"; // Yetkisi olmayan kullanýcýlar için
+
 });
 
 builder.Services.AddAuthorization(options =>

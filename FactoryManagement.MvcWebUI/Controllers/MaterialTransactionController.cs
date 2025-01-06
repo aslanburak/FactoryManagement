@@ -5,6 +5,7 @@ using FactoryManagement.Entities.Concrete.CustomIdentity;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using FactoryManagement.MvcWebUI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FactoryManagement.MvcWebUI.Controllers
 {
@@ -20,7 +21,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
             _materialWarehouseService = materialWarehouseService;
             _userManager = userManager;
         }
-
+        [Authorize]
         public ActionResult ListTransactions()
         {
             var model = new TransactionListViewModel
@@ -30,8 +31,8 @@ namespace FactoryManagement.MvcWebUI.Controllers
             return View(model);
         }
 
-       
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddTransaction(int quantity, int warehouseId, string transactionType, int materialWarehouseId,int materialId)
         {
@@ -74,11 +75,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
                 _materialTransactionService.Add(transaction);
             }
 
-
-
-
-
-                return RedirectToAction("GetMaterialsByWarehouseId", "MaterialWarehouse", new { warehouseId= warehouseId });
+                return RedirectToAction("GetMaterialsByWarehouseId", "MaterialWarehouse", new { warehouseId= warehouseId, materialId=materialId });
         }
 
     }

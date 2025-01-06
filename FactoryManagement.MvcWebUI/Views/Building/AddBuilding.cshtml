@@ -12,8 +12,8 @@
         <span asp-validation-for="Building.Name"></span>
     </div>
     <div class="mb-3">
-        <label class="form-label">Fabrika Seç</label>
-        <select asp-for="Building.FactoryID" class="form-control" asp-items="@(new SelectList(Model.Factories,"FactoryID","Name"))">
+        <label asp-for="Building.FactoryID" class="form-label">Fabrika Seç</label>
+        <select asp-for="Building.FactoryID" class="form-control" asp-items="@(new SelectList(Model.Factories,"FactoryID","Name",Model.Building.FactoryID))">
             <option value="">Seçiniz</option>
         </select>
         <span asp-validation-for="Building.FactoryID"></span>
