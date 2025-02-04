@@ -1,4 +1,5 @@
 using FactoryManagement.MvcWebUI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -12,7 +13,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
         {
             _logger = logger;
         }
-
+        [Authorize(Policy = "RequireAdminOrPersonnel")]
         public IActionResult Index()
         {
             return View();

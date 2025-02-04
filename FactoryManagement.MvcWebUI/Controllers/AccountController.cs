@@ -37,7 +37,7 @@ namespace FactoryManagement.MvcWebUI.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("ListFactory", "Factory");
+                    return RedirectToAction("Index", "Home");
                 }
                 
 
